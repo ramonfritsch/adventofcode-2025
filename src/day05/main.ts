@@ -1,4 +1,4 @@
-// Advent of Code - Day 2
+// Advent of Code - Day 5
 
 import { readFile } from 'fs/promises';
 import { part1 } from './part1.js';
@@ -8,7 +8,7 @@ import profile from '../helpers/profile.js';
 (async function () {
   try {
     const input: string = await readFile(
-      'src/day02/resources/input.txt',
+      'src/day05/resources/input.txt',
       'utf8',
     );
 
