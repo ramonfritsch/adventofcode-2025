@@ -4,9 +4,9 @@
   "type": "module",
   "description": "Advent of Code 2024 in TypeScript",
   "scripts": {
-    "gen": "sh scripts/gen.sh",
+    "gen": "bun run scripts/gen.ts",
     "start": "sh scripts/start.sh",
-    "test": "vitest"
+    "test": "bun test --watch"
   },
   "keywords": [
     "aoc",

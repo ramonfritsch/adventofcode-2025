@@ -16,12 +16,14 @@ import profile from '../helpers/profile.js';
     console.log(
       'Result',
       profile(() => part1(input)),
+      '\n',
     );
 
     console.log('--- Part Two ---');
     console.log(
       'Result',
       profile(() => part2(input)),
+      '\n',
     );
   } catch (err) {
     console.error(err);
