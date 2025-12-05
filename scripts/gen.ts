@@ -24,7 +24,7 @@ const targetFiles = (dayName: string): Array<string> => [
 ];
 
 const fetchInput = async (day: number, session: string): Promise<string> => {
-  const url = `https://adventofcode.com/2024/day/${day}/input`;
+  const url = `https://adventofcode.com/2025/day/${day}/input`;
   const headers = { cookie: `session=${session}` };
 
   const response = await fetch(url, { headers });

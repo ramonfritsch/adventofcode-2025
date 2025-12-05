@@ -16,7 +16,7 @@ const targetFiles = (dayName) => [
     `src/${dayName}/__tests__/${dayName}.test.ts`,
 ];
 const fetchInput = async (day, session) => {
-    const url = `https://adventofcode.com/2024/day/${day}/input`;
+    const url = `https://adventofcode.com/2025/day/${day}/input`;
     const headers = { cookie: `session=${session}` };
     const response = await fetch(url, { headers });
     const text = await response.text();
