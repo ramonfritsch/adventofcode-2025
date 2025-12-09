@@ -26,17 +26,21 @@ export function part2(input: string): number {
     byY[yStr].push(x);
   }
 
-  const hSegments: Array<[[number, number], [number, number]]> = [];
-  const vSegments: Array<[[number, number], [number, number]]> = [];
+  const hSegments: Array<{ x: number; y1: number; y2: number }> = [];
+  const vSegments: Array<{ y: number; x1: number; x2: number }> = [];
 
   for (const sx of Object.keys(byX)) {
     const ys = byX[sx].sort((a, b) => a - b);
     const sxn = Number(sx);
     for (let i = 0, l = Math.floor(ys.length / 2); i < l; i++) {
-      hSegments.push([
-        [sxn, ys[2 * i]],
-        [sxn, ys[2 * i + 1]],
-      ]);
+      const yA = ys[2 * i];
+      const yB = ys[2 * i + 1];
+
+      hSegments.push({
+        x: sxn,
+        y1: Math.min(yA, yB),
+        y2: Math.max(yA, yB),
+      });
     }
   }
 
@@ -44,10 +48,13 @@ export function part2(input: string): number {
     const xs = byY[sy].sort((a, b) => a - b);
     const syn = Number(sy);
     for (let i = 0, l = Math.floor(xs.length / 2); i < l; i++) {
-      vSegments.push([
-        [xs[2 * i], syn],
-        [xs[2 * i + 1], syn],
-      ]);
+      const xA = xs[2 * i];
+      const xB = xs[2 * i + 1];
+      vSegments.push({
+        y: syn,
+        x1: Math.min(xA, xB),
+        x2: Math.max(xA, xB),
+      });
     }
   }
 
@@ -58,6 +65,7 @@ export function part2(input: string): number {
 
   for (let i = 0; i < pointsLength; i++) {
     const a = points[i];
+
     for (let j = i + 1; j < pointsLength; j++) {
       const b = points[j];
 
@@ -70,13 +78,10 @@ export function part2(input: string): number {
 
       // Check horizontal segments
       for (let i = 0; i < hSegmentsLength; i++) {
-        const [h0, h1] = hSegments[i];
-        const hx = h0[0];
-        const hy0 = Math.min(h0[1], h1[1]);
-        const hy1 = Math.max(h0[1], h1[1]);
+        const seg = hSegments[i];
 
-        if (hx > minx && hx < maxx) {
-          if (!(hy1 <= miny || hy0 >= maxy)) {
+        if (seg.x > minx && seg.x < maxx) {
+          if (!(seg.y2 <= miny || seg.y1 >= maxy)) {
             works = false;
             break;
           }
@@ -89,13 +94,10 @@ export function part2(input: string): number {
 
       // Check vertical segments
       for (let i = 0; i < vSegmentsLength; i++) {
-        const [v0, v1] = vSegments[i];
-        const vy = v0[1];
-        const vx0 = Math.min(v0[0], v1[0]);
-        const vx1 = Math.max(v0[0], v1[0]);
+        const seg = vSegments[i];
 
-        if (vy > miny && vy < maxy) {
-          if (!(vx1 <= minx || vx0 >= maxx)) {
+        if (seg.y > miny && seg.y < maxy) {
+          if (!(seg.x2 <= minx || seg.x1 >= maxx)) {
             works = false;
             break;
           }
